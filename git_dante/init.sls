@@ -1,11 +1,6 @@
 install_dante:
   pkg.installed:
     - name: dante-server
-#  service.running:
-#    - name: danted
-#    - enable: True
-#    - require:
-#      - pkg: install_dante
 
 dante_user:
   user.present:
@@ -30,3 +25,10 @@ reload_dante:
     - require:
       - pkg: install_dante
 
+# Enable dante here even if conf file is not changed
+# because dante needs a working config file before it can run
+danted:
+  service.running:
+    - enable: True
+    - require:
+      - pkg: install_dante
