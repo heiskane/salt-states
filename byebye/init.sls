@@ -1,3 +1,3 @@
 /tmp/hello.txt:
   file.managed:
-    - source: salt://hello/hello.txt
+    - source: salt://byebye/hello.txt
