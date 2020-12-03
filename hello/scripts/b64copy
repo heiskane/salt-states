@@ -1,2 +1,0 @@
-#!/bin/bash
-base64 -w0 $@ | xclip -selection clipboard

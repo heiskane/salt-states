@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "Time: $(date +'%H:%M')"
+cpu=$(lscpu|grep 'Model '|awk -F':' '{print $2}')
+
+# This way random whitespace is removed
+echo $cpu|xargs echo 'CPU:'
+
+echo "IP: $(hostname -I)"
