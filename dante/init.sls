@@ -6,7 +6,8 @@ dante_user:
   user.present:
     - name: heiskane
     - shell: /usr/sbin/nologin
-    - password: $6$Pojx5jnjRxDO2E96$tzZazL8Pvdv3YaLULra.UukbBPCE/Pn3g6smmbODAI6teQEBA4j4iJzGWrALYcj/z.4BKlEU/d2gLbbEbr99Y1
+    - password: YouMightWantToChangeThisDefaultPassword
+    - hash_password: True 
 
 add_config:
   file.managed:
@@ -15,9 +16,8 @@ add_config:
     - require:
       - pkg: install_dante
 
-reload_dante:
+danted:
   service.running:
-    - name: danted
     - enable: True
     - restart: True
     - watch:
@@ -25,10 +25,18 @@ reload_dante:
     - require:
       - pkg: install_dante
 
-# Enable dante here even if conf file is not changed
-# because dante needs a working config file before it can run
-danted:
+
+# This part will only allow connections to port 1080
+# So ssh will not be allowed as this is intended to
+# setup DISPOSABLE socks5 proxies fast
+/etc/ufw/:
+  file.recurse:
+    - source: salt://dante/ufw/
+    - file_mode: 640
+
+ufw:
   service.running:
     - enable: True
-    - require:
-      - pkg: install_dante
+    - restart: True
+    - watch:
+      - file: /etc/ufw/

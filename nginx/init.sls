@@ -7,7 +7,7 @@ nginx:
     - user: www-data
     - group: www-data
     - makedirs: True
-    - file_mode: 644
+    - file_mode: 755
 
 /etc/nginx/sites-available/heiskane:
   file.managed:
