@@ -1,11 +1,17 @@
-dante_user:
+webadmin:
   user.present:
-    - name: heiskane
     - shell: /usr/sbin/nologin
 
-/home/heiskane/public_html:
+/home/webadmin/public_html:
   file.directory:
-    - user: heiskane
-    - group: heiskane
+    - user: webadmin
+    - group: webadmin
     - mode: 2771
-    - makedirs: True
+
+niko:
+  user.present:
+    - password: $6$k/hlfoIOcBYoFtEa$mucmPkbgHsZNCKP/WEqPdYjPPvBZ3guHGLH81FSGj0Mzxn8.ygny1Bi5JlZRSLfJyyMRcPSwNkeyQ9JYfKNgn1
+    - shell: /bin/bash
+    - groups:
+      - webadmin
+
